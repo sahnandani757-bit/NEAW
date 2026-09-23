@@ -13,7 +13,7 @@ services:
           property: connectionString
 
   - type: web
-    name: neaw-frontend
+    name: neaw
     runtime: node
     plan: free
     rootDir: frontend
