@@ -2,6 +2,7 @@ services:
   - type: web
     name: neaw-backend
     runtime: python
+    plan: free
     rootDir: backend
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
@@ -14,6 +15,7 @@ services:
   - type: web
     name: neaw-frontend
     runtime: node
+    plan: free
     rootDir: frontend
     buildCommand: npm ci && npm run build
     startCommand: npm start
@@ -23,5 +25,6 @@ services:
 
 databases:
   - name: neaw-db
+    plan: free
     databaseName: neaw
     user: neaw
