@@ -19,7 +19,7 @@ export type Project = {
   title: string;
   location: string;
   sector: string;
-  status: string;
+  status: ProjectStatus;
   description: string;
   is_sample: boolean;
   show_on_home: boolean;
