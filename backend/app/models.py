@@ -127,6 +127,60 @@ class HomeSection(Base):
     button_2_label: Mapped[str] = mapped_column(String(200), default="")
     button_2_url: Mapped[str] = mapped_column(String(500), default="")
 
+
+
+
+class AboutSection(Base):
+    """
+    Controls the structure and content of the About page.
+
+    Each row represents one controlled section of the About page.
+    Admin can enable/disable, edit content, change images,
+    buttons, and reorder sections without changing frontend code.
+    """
+
+    __tablename__ = "about_sections"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+
+    # Unique internal identifier, e.g. "hero", "introduction", "mission"
+    section_key: Mapped[str] = mapped_column(
+        String(100),
+        unique=True,
+        index=True,
+    )
+
+    # Controlled frontend section type:
+    # hero, image_text, mission, vision, cards, cta
+    section_type: Mapped[str] = mapped_column(String(50))
+
+    # Main section content
+    eyebrow: Mapped[str] = mapped_column(String(200), default="")
+    title: Mapped[str] = mapped_column(String(500), default="")
+    description: Mapped[str] = mapped_column(Text, default="")
+    content: Mapped[str] = mapped_column(Text, default="")
+
+    # Optional section image
+    image_id: Mapped[int | None] = mapped_column(
+        ForeignKey("images.id"),
+        nullable=True,
+    )
+    image_alt: Mapped[str] = mapped_column(String(255), default="")
+    image: Mapped["Image | None"] = relationship()
+
+    # Section visibility and order
+    enabled: Mapped[bool] = mapped_column(Boolean, default=True)
+    sort_order: Mapped[int] = mapped_column(Integer, default=0)
+
+    # Optional buttons
+    button_1_label: Mapped[str] = mapped_column(String(200), default="")
+    button_1_url: Mapped[str] = mapped_column(String(500), default="")
+
+    button_2_label: Mapped[str] = mapped_column(String(200), default="")
+    button_2_url: Mapped[str] = mapped_column(String(500), default="")
+
+
+    
 class ContentListItem(Base):
     """
     Generic repeatable (title, description) item, grouped by `list_key`.

@@ -66,7 +66,15 @@ html {
 html::-webkit-scrollbar {
   display: none;
 }
+/* Admin content scrolls, but scrollbar stays hidden */
+.admin-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
 
+.admin-scroll::-webkit-scrollbar {
+  display: none;
+}
 body {
   margin: 0;
   overflow-x: hidden;

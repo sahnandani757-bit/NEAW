@@ -36,14 +36,16 @@ const SECTION_NAMES: Record<string, string> = {
 
 const SECTION_DESCRIPTIONS: Record<string, string> = {
   hero: "Main hero section shown at the top of the Home page.",
-  introduction: "Introduction section with company overview and supporting image.",
+  introduction:
+    "Introduction section with company overview and supporting image.",
   focus: "Areas of Focus cards pulled from the Focus Areas content list.",
   projects: "Featured project section shown on the Home page.",
   partnerships: "Partnership-focused image and content section.",
   opportunities: "Opportunity / project enquiry call-to-action section.",
   insights: "Featured insights/articles shown on the Home page.",
   careers: "Careers section with supporting content.",
-  final_cta: "Final call-to-action section at the bottom of the Home page.",
+  final_cta:
+    "Final call-to-action section at the bottom of the Home page.",
 };
 
 const SECTION_TYPES = [
@@ -87,6 +89,7 @@ export default function AdminHomePage() {
 
     try {
       const data = await adminFetch("/home-sections");
+
       setSections(
         [...data].sort(
           (a: HomeSection, b: HomeSection) =>
@@ -361,34 +364,37 @@ export default function AdminHomePage() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-full bg-white">
+      <div className="container-wide px-5 py-6 sm:px-8 sm:py-7">
         {/* Header */}
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+        <div className="flex flex-col gap-4 border-b border-line pb-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-semibold tracking-tight text-slate-900">
-                Home Page
-              </h1>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-[10px] font-semibold tracking-wide text-blue">
+                HOME PAGE BUILDER
+              </span>
 
-              <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
+              <span className="rounded-[6px] bg-blue-pale px-2 py-1 text-[10px] font-semibold text-blue">
                 {sections.length} sections
               </span>
             </div>
 
-            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-500">
-              Manage the structure and editable content of the NEAW Home
-              page. You can enable or disable sections, edit content,
-              change buttons, and control the display order.
+            <h1 className="mt-1 text-2xl font-bold tracking-tight text-ink">
+              Home Page
+            </h1>
+
+            <p className="mt-1 max-w-2xl text-xs leading-5 text-slate">
+              Manage Home page sections, content, buttons, images and
+              display order.
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex gap-2">
             <button
               type="button"
               onClick={refresh}
               disabled={loading || saving}
-              className="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-[10px] border border-line bg-white px-3.5 py-2 text-[11px] font-semibold text-ink transition hover:bg-surface-alt disabled:cursor-not-allowed disabled:opacity-50"
             >
               Refresh
             </button>
@@ -397,38 +403,38 @@ export default function AdminHomePage() {
               type="button"
               onClick={handleCreate}
               disabled={saving}
-              className="rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-[10px] bg-ink px-3.5 py-2 text-[11px] font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
             >
               + Add Section
             </button>
           </div>
         </div>
 
-        {/* Status */}
-        <div className="mt-6 flex flex-wrap gap-3">
-          <div className="rounded-lg border border-slate-200 bg-white px-4 py-3">
-            <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+        {/* Stats */}
+        <div className="mt-5 grid grid-cols-3 gap-2.5">
+          <div className="rounded-[10px] border border-line bg-white px-3 py-2.5">
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-slate">
               Total
             </p>
-            <p className="mt-1 text-xl font-semibold text-slate-900">
+            <p className="mt-0.5 text-lg font-bold text-ink">
               {sections.length}
             </p>
           </div>
 
-          <div className="rounded-lg border border-slate-200 bg-white px-4 py-3">
-            <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+          <div className="rounded-[10px] border border-line bg-white px-3 py-2.5">
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-slate">
               Enabled
             </p>
-            <p className="mt-1 text-xl font-semibold text-slate-900">
+            <p className="mt-0.5 text-lg font-bold text-ink">
               {enabledCount}
             </p>
           </div>
 
-          <div className="rounded-lg border border-slate-200 bg-white px-4 py-3">
-            <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+          <div className="rounded-[10px] border border-line bg-white px-3 py-2.5">
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-slate">
               Disabled
             </p>
-            <p className="mt-1 text-xl font-semibold text-slate-900">
+            <p className="mt-0.5 text-lg font-bold text-ink">
               {sections.length - enabledCount}
             </p>
           </div>
@@ -436,43 +442,44 @@ export default function AdminHomePage() {
 
         {/* Messages */}
         {error && (
-          <div className="mt-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          <div className="mt-4 rounded-[10px] border border-red-200 bg-red-50 px-3 py-2.5 text-xs text-red-700">
             {error}
           </div>
         )}
 
         {success && (
-          <div className="mt-6 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+          <div className="mt-4 rounded-[10px] border border-emerald-200 bg-emerald-50 px-3 py-2.5 text-xs text-emerald-700">
             {success}
           </div>
         )}
 
         {/* Sections */}
         {loading ? (
-          <div className="mt-8 rounded-xl border border-slate-200 bg-white p-8 text-center">
-            <p className="text-sm text-slate-500">
+          <div className="mt-5 rounded-[10px] border border-line bg-white p-8 text-center">
+            <p className="text-xs text-slate">
               Loading Home page sections…
             </p>
           </div>
         ) : sections.length === 0 ? (
-          <div className="mt-8 rounded-xl border border-dashed border-slate-300 bg-white p-12 text-center">
-            <h2 className="text-lg font-semibold text-slate-800">
+          <div className="mt-5 rounded-[10px] border border-dashed border-line bg-white p-8 text-center">
+            <h2 className="text-sm font-bold text-ink">
               No Home sections
             </h2>
-            <p className="mt-2 text-sm text-slate-500">
+
+            <p className="mt-1 text-xs text-slate">
               Create a section to start building the Home page.
             </p>
 
             <button
               type="button"
               onClick={handleCreate}
-              className="mt-5 rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white"
+              className="mt-4 rounded-[10px] bg-ink px-4 py-2 text-xs font-semibold text-white"
             >
               + Add Section
             </button>
           </div>
         ) : (
-          <div className="mt-8 flex flex-col gap-4">
+          <div className="mt-5 flex flex-col gap-2.5">
             {sections.map((section, index) => {
               const name =
                 SECTION_NAMES[section.section_key] ??
@@ -485,56 +492,59 @@ export default function AdminHomePage() {
               return (
                 <div
                   key={section.id}
-                  className={`rounded-xl border bg-white shadow-sm transition ${
+                  className={`rounded-[10px] border bg-white transition ${
                     section.enabled
-                      ? "border-slate-200"
-                      : "border-slate-200 opacity-70"
+                      ? "border-line"
+                      : "border-line opacity-60"
                   }`}
                 >
-                  <div className="p-5 sm:p-6">
-                    <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
-                      {/* Left */}
-                      <div className="flex min-w-0 gap-4">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-sm font-bold text-slate-600">
+                  <div className="p-3.5 sm:p-4">
+                    <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                      {/* Section Info */}
+                      <div className="flex min-w-0 gap-3">
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[6px] bg-blue-pale text-[11px] font-bold text-blue">
                           {index + 1}
                         </div>
 
                         <div className="min-w-0">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <h2 className="text-base font-semibold text-slate-900">
+                          <div className="flex flex-wrap items-center gap-1.5">
+                            <h2 className="text-sm font-bold text-ink">
                               {name}
                             </h2>
 
                             <span
-                              className={`rounded-full px-2.5 py-1 text-xs font-semibold ${
+                              className={`rounded-[6px] px-2 py-0.5 text-[10px] font-semibold ${
                                 section.enabled
                                   ? "bg-emerald-50 text-emerald-700"
                                   : "bg-slate-100 text-slate-500"
                               }`}
                             >
-                              {section.enabled ? "Enabled" : "Disabled"}
+                              {section.enabled
+                                ? "Enabled"
+                                : "Disabled"}
                             </span>
 
-                            <span className="rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700">
+                            <span className="rounded-[6px] bg-blue-pale px-2 py-0.5 text-[10px] font-medium text-blue">
                               {section.section_type}
                             </span>
                           </div>
 
-                          <p className="mt-1 text-xs font-medium text-slate-400">
+                          <p className="mt-0.5 text-[10px] text-slate">
                             Key: {section.section_key} · Order:{" "}
                             {section.sort_order}
                           </p>
 
-                          <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-500">
+                          <p className="mt-1.5 max-w-2xl text-[11px] leading-4 text-slate">
                             {description}
                           </p>
 
                           {section.title && (
-                            <div className="mt-4 rounded-lg bg-slate-50 p-4">
-                              <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+                            <div className="mt-2 border-l-2 border-blue pl-2.5">
+                              <p className="text-[10px] font-semibold uppercase tracking-wide text-slate">
                                 Current title
                               </p>
-                              <p className="mt-1 text-sm font-medium text-slate-800">
+
+                              <p className="mt-0.5 text-xs font-medium text-ink">
                                 {section.title}
                               </p>
                             </div>
@@ -543,7 +553,7 @@ export default function AdminHomePage() {
                       </div>
 
                       {/* Actions */}
-                      <div className="flex shrink-0 flex-wrap items-center gap-2">
+                      <div className="flex shrink-0 flex-wrap items-center gap-1.5">
                         <button
                           type="button"
                           onClick={() =>
@@ -551,7 +561,7 @@ export default function AdminHomePage() {
                           }
                           disabled={index === 0 || saving}
                           title="Move up"
-                          className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
+                          className="flex h-8 w-8 items-center justify-center rounded-[6px] border border-line bg-white text-xs text-slate transition hover:bg-surface-alt disabled:cursor-not-allowed disabled:opacity-40"
                         >
                           ↑
                         </button>
@@ -562,10 +572,11 @@ export default function AdminHomePage() {
                             moveSection(section, "down")
                           }
                           disabled={
-                            index === sections.length - 1 || saving
+                            index === sections.length - 1 ||
+                            saving
                           }
                           title="Move down"
-                          className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
+                          className="flex h-8 w-8 items-center justify-center rounded-[6px] border border-line bg-white text-xs text-slate transition hover:bg-surface-alt disabled:cursor-not-allowed disabled:opacity-40"
                         >
                           ↓
                         </button>
@@ -574,7 +585,7 @@ export default function AdminHomePage() {
                           type="button"
                           onClick={() => handleToggle(section)}
                           disabled={saving}
-                          className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+                          className="rounded-[10px] border border-line bg-white px-3 py-1.5 text-[10px] font-semibold text-ink transition hover:bg-surface-alt disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           {section.enabled ? "Disable" : "Enable"}
                         </button>
@@ -583,7 +594,7 @@ export default function AdminHomePage() {
                           type="button"
                           onClick={() => openEditor(section)}
                           disabled={saving}
-                          className="rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
+                          className="rounded-[10px] bg-ink px-3.5 py-1.5 text-[10px] font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           Edit
                         </button>
@@ -592,7 +603,7 @@ export default function AdminHomePage() {
                           type="button"
                           onClick={() => handleDelete(section)}
                           disabled={saving}
-                          className="rounded-md border border-red-200 bg-white px-3 py-2 text-sm font-semibold text-red-600 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50"
+                          className="rounded-[10px] border border-red-200 bg-white px-3 py-1.5 text-[10px] font-semibold text-red-600 transition hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           Delete
                         </button>
@@ -608,384 +619,402 @@ export default function AdminHomePage() {
 
       {/* Edit Modal */}
       {editing && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/40 p-4">
-          <div className="flex min-h-full items-center justify-center">
-            <div className="w-full max-w-3xl rounded-xl bg-white shadow-2xl">
-              {/* Modal header */}
-              <div className="flex items-start justify-between gap-4 border-b border-slate-200 px-6 py-5">
-                <div>
-                  <h2 className="text-lg font-semibold text-slate-900">
-                    Edit Home Section
-                  </h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-3 backdrop-blur-sm">
+          <div className="flex max-h-[calc(100vh-24px)] w-full max-w-3xl flex-col rounded-[10px] border border-line bg-white shadow-2xl">
+            {/* Modal Header */}
+            <div className="flex shrink-0 items-center justify-between gap-3 border-b border-line px-5 py-3.5">
+              <div className="min-w-0">
+                <span className="text-[10px] font-semibold tracking-wide text-blue">
+                  HOME SECTION
+                </span>
 
-                  <p className="mt-1 text-sm text-slate-500">
-                    {SECTION_NAMES[editing.section_key] ??
-                      editing.section_key}
+                <h2 className="mt-0.5 text-base font-bold text-ink">
+                  Edit Home Section
+                </h2>
+
+                <p className="mt-0.5 truncate text-[11px] text-slate">
+                  {SECTION_NAMES[editing.section_key] ??
+                    editing.section_key}
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setEditing(null)}
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[6px] border border-line text-lg leading-none text-slate transition hover:bg-surface-alt hover:text-ink"
+                aria-label="Close"
+              >
+                ×
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="min-h-0 flex-1 overflow-y-auto px-5 py-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {/* Section Key */}
+                <div>
+                  <label className="text-[11px] font-semibold text-ink">
+                    Section key
+                  </label>
+
+                  <input
+                    value={editing.section_key}
+                    onChange={(e) =>
+                      updateEditing(
+                        "section_key",
+                        e.target.value
+                      )
+                    }
+                    className="mt-1 w-full rounded-[10px] border border-line bg-white px-3 py-2 text-xs text-ink outline-none transition focus:border-blue focus:ring-2 focus:ring-blue/10"
+                  />
+
+                  <p className="mt-1 text-[10px] leading-4 text-slate">
+                    Keep existing keys unchanged unless the
+                    frontend supports the new key.
                   </p>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() => setEditing(null)}
-                  className="rounded-md p-2 text-xl leading-none text-slate-400 hover:bg-slate-100 hover:text-slate-700"
-                  aria-label="Close"
-                >
-                  ×
-                </button>
+                {/* Section Type */}
+                <div>
+                  <label className="text-[11px] font-semibold text-ink">
+                    Section type
+                  </label>
+
+                  <select
+                    value={editing.section_type}
+                    onChange={(e) =>
+                      updateEditing(
+                        "section_type",
+                        e.target.value
+                      )
+                    }
+                    className="mt-1 w-full rounded-[10px] border border-line bg-white px-3 py-2 text-xs text-ink outline-none transition focus:border-blue focus:ring-2 focus:ring-blue/10"
+                  >
+                    {SECTION_TYPES.map((type) => (
+                      <option
+                        key={type.value}
+                        value={type.value}
+                      >
+                        {type.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Sort Order */}
+                <div>
+                  <label className="text-[11px] font-semibold text-ink">
+                    Sort order
+                  </label>
+
+                  <input
+                    type="number"
+                    min={1}
+                    value={editing.sort_order}
+                    onChange={(e) =>
+                      updateEditing(
+                        "sort_order",
+                        Number(e.target.value)
+                      )
+                    }
+                    className="mt-1 w-full rounded-[10px] border border-line bg-white px-3 py-2 text-xs text-ink outline-none transition focus:border-blue focus:ring-2 focus:ring-blue/10"
+                  />
+                </div>
+
+                {/* Enabled */}
+                <div className="flex items-center">
+                  <label className="flex cursor-pointer items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={editing.enabled}
+                      onChange={(e) =>
+                        updateEditing(
+                          "enabled",
+                          e.target.checked
+                        )
+                      }
+                      className="h-3.5 w-3.5 border-line"
+                    />
+
+                    <span>
+                      <span className="block text-[11px] font-semibold text-ink">
+                        Enable this section
+                      </span>
+
+                      <span className="block text-[10px] text-slate">
+                        Disabled sections are hidden from Home.
+                      </span>
+                    </span>
+                  </label>
+                </div>
               </div>
 
-              {/* Modal body */}
-              <div className="max-h-[75vh] overflow-y-auto px-6 py-6">
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                  {/* Section key */}
+              {/* Content */}
+              <div className="mt-4 border border-line bg-surface-alt p-3.5">
+                <p className="text-[10px] font-semibold uppercase tracking-wide text-blue">
+                  Content
+                </p>
+
+                <div className="mt-3 space-y-3">
+                  {/* Eyebrow */}
                   <div>
-                    <label className="text-sm font-medium text-slate-700">
-                      Section key
+                    <label className="text-[11px] font-semibold text-ink">
+                      Eyebrow / Kicker
                     </label>
 
                     <input
-                      value={editing.section_key}
+                      value={editing.eyebrow}
                       onChange={(e) =>
                         updateEditing(
-                          "section_key",
+                          "eyebrow",
                           e.target.value
                         )
                       }
-                      className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-500 focus:ring-1 focus:ring-slate-500"
+                      placeholder="About NEAW"
+                      className="mt-1 w-full rounded-[10px] border border-line bg-white px-3 py-2 text-xs text-ink outline-none transition placeholder:text-slate/50 focus:border-blue focus:ring-2 focus:ring-blue/10"
                     />
-
-                    <p className="mt-1 text-xs text-slate-400">
-                      Keep existing keys unchanged unless you know
-                      the frontend renderer supports the new key.
-                    </p>
                   </div>
 
-                  {/* Section type */}
+                  {/* Title */}
                   <div>
-                    <label className="text-sm font-medium text-slate-700">
-                      Section type
+                    <label className="text-[11px] font-semibold text-ink">
+                      Title
                     </label>
 
-                    <select
-                      value={editing.section_type}
+                    <input
+                      value={editing.title}
                       onChange={(e) =>
                         updateEditing(
-                          "section_type",
+                          "title",
                           e.target.value
                         )
                       }
-                      className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-500 focus:ring-1 focus:ring-slate-500"
-                    >
-                      {SECTION_TYPES.map((type) => (
-                        <option
-                          key={type.value}
-                          value={type.value}
-                        >
-                          {type.label}
-                        </option>
-                      ))}
-                    </select>
+                      placeholder="Section title"
+                      className="mt-1 w-full rounded-[10px] border border-line bg-white px-3 py-2 text-xs text-ink outline-none transition placeholder:text-slate/50 focus:border-blue focus:ring-2 focus:ring-blue/10"
+                    />
                   </div>
 
-                  {/* Sort order */}
+                  {/* Description */}
                   <div>
-                    <label className="text-sm font-medium text-slate-700">
-                      Sort order
+                    <label className="text-[11px] font-semibold text-ink">
+                      Description
+                    </label>
+
+                    <textarea
+                      value={editing.description}
+                      onChange={(e) =>
+                        updateEditing(
+                          "description",
+                          e.target.value
+                        )
+                      }
+                      rows={3}
+                      placeholder="Section description"
+                      className="mt-1 w-full resize-y rounded-[10px] border border-line bg-white px-3 py-2 text-xs leading-5 text-ink outline-none transition placeholder:text-slate/50 focus:border-blue focus:ring-2 focus:ring-blue/10"
+                    />
+                  </div>
+
+                  {/* Main Content */}
+                  <div>
+                    <label className="text-[11px] font-semibold text-ink">
+                      Main content
+                    </label>
+
+                    <textarea
+                      value={editing.content}
+                      onChange={(e) =>
+                        updateEditing(
+                          "content",
+                          e.target.value
+                        )
+                      }
+                      rows={5}
+                      placeholder="Additional section content"
+                      className="mt-1 w-full resize-y rounded-[10px] border border-line bg-white px-3 py-2 text-xs leading-5 text-ink outline-none transition placeholder:text-slate/50 focus:border-blue focus:ring-2 focus:ring-blue/10"
+                    />
+
+                    <p className="mt-1 text-[10px] text-slate">
+                      Separate multiple paragraphs with a blank
+                      line.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Image */}
+              <div className="mt-3 border border-line bg-surface-alt p-3.5">
+                <p className="text-[10px] font-semibold uppercase tracking-wide text-blue">
+                  Image
+                </p>
+
+                <p className="mt-0.5 text-[10px] text-slate">
+                  Select the image ID from the existing Images
+                  system.
+                </p>
+
+                <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <div>
+                    <label className="text-[11px] font-semibold text-ink">
+                      Image ID
                     </label>
 
                     <input
                       type="number"
                       min={1}
-                      value={editing.sort_order}
+                      value={editing.image_id ?? ""}
                       onChange={(e) =>
                         updateEditing(
-                          "sort_order",
-                          Number(e.target.value)
+                          "image_id",
+                          e.target.value
+                            ? Number(e.target.value)
+                            : null
                         )
                       }
-                      className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-500 focus:ring-1 focus:ring-slate-500"
+                      placeholder="e.g. 1"
+                      className="mt-1 w-full rounded-[10px] border border-line bg-white px-3 py-2 text-xs text-ink outline-none transition focus:border-blue focus:ring-2 focus:ring-blue/10"
                     />
                   </div>
 
-                  {/* Enabled */}
-                  <div className="flex items-center">
-                    <label className="flex cursor-pointer items-center gap-3">
-                      <input
-                        type="checkbox"
-                        checked={editing.enabled}
-                        onChange={(e) =>
-                          updateEditing(
-                            "enabled",
-                            e.target.checked
-                          )
-                        }
-                        className="h-4 w-4 rounded border-slate-300"
-                      />
-
-                      <span>
-                        <span className="block text-sm font-medium text-slate-700">
-                          Enable this section
-                        </span>
-                        <span className="block text-xs text-slate-400">
-                          Disabled sections will not be rendered on
-                          the Home page.
-                        </span>
-                      </span>
+                  <div>
+                    <label className="text-[11px] font-semibold text-ink">
+                      Image alt text
                     </label>
+
+                    <input
+                      value={editing.image_alt}
+                      onChange={(e) =>
+                        updateEditing(
+                          "image_alt",
+                          e.target.value
+                        )
+                      }
+                      placeholder="Describe the image"
+                      className="mt-1 w-full rounded-[10px] border border-line bg-white px-3 py-2 text-xs text-ink outline-none transition focus:border-blue focus:ring-2 focus:ring-blue/10"
+                    />
                   </div>
                 </div>
 
-                {/* Eyebrow */}
-                <div className="mt-5">
-                  <label className="text-sm font-medium text-slate-700">
-                    Eyebrow / Kicker
-                  </label>
+                {editing.image_url && (
+                  <div className="mt-3">
+                    <p className="mb-1.5 text-[10px] font-semibold text-slate">
+                      Current image
+                    </p>
 
-                  <input
-                    value={editing.eyebrow}
-                    onChange={(e) =>
-                      updateEditing("eyebrow", e.target.value)
-                    }
-                    placeholder="About NEAW"
-                    className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-500 focus:ring-1 focus:ring-slate-500"
-                  />
-                </div>
-
-                {/* Title */}
-                <div className="mt-5">
-                  <label className="text-sm font-medium text-slate-700">
-                    Title
-                  </label>
-
-                  <input
-                    value={editing.title}
-                    onChange={(e) =>
-                      updateEditing("title", e.target.value)
-                    }
-                    placeholder="Section title"
-                    className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-500 focus:ring-1 focus:ring-slate-500"
-                  />
-                </div>
-
-                {/* Description */}
-                <div className="mt-5">
-                  <label className="text-sm font-medium text-slate-700">
-                    Description
-                  </label>
-
-                  <textarea
-                    value={editing.description}
-                    onChange={(e) =>
-                      updateEditing(
-                        "description",
-                        e.target.value
-                      )
-                    }
-                    rows={4}
-                    placeholder="Section description"
-                    className="mt-1 w-full resize-y rounded-md border border-slate-300 px-3 py-2 text-sm leading-6 text-slate-900 outline-none focus:border-slate-500 focus:ring-1 focus:ring-slate-500"
-                  />
-                </div>
-
-                {/* Content */}
-                <div className="mt-5">
-                  <label className="text-sm font-medium text-slate-700">
-                    Main content
-                  </label>
-
-                  <textarea
-                    value={editing.content}
-                    onChange={(e) =>
-                      updateEditing(
-                        "content",
-                        e.target.value
-                      )
-                    }
-                    rows={7}
-                    placeholder="Additional section content"
-                    className="mt-1 w-full resize-y rounded-md border border-slate-300 px-3 py-2 text-sm leading-6 text-slate-900 outline-none focus:border-slate-500 focus:ring-1 focus:ring-slate-500"
-                  />
-
-                  <p className="mt-1 text-xs text-slate-400">
-                    Multiple paragraphs can be separated with a blank
-                    line.
-                  </p>
-                </div>
-
-                {/* Image */}
-                <div className="mt-5 rounded-lg border border-slate-200 bg-slate-50 p-4">
-                  <h3 className="text-sm font-semibold text-slate-800">
-                    Image
-                  </h3>
-
-                  <p className="mt-1 text-xs text-slate-500">
-                    Image selection/upload will be connected to the
-                    existing Images system in the next step.
-                  </p>
-
-                  <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <div>
-                      <label className="text-sm font-medium text-slate-700">
-                        Image ID
-                      </label>
-
-                      <input
-                        type="number"
-                        min={1}
-                        value={editing.image_id ?? ""}
-                        onChange={(e) =>
-                          updateEditing(
-                            "image_id",
-                            e.target.value
-                              ? Number(e.target.value)
-                              : null
-                          )
+                    <div className="overflow-hidden rounded-[10px] border border-line bg-white">
+                      <img
+                        src={editing.image_url}
+                        alt={
+                          editing.image_alt ||
+                          editing.title
                         }
-                        placeholder="e.g. 1"
-                        className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-500 focus:ring-1 focus:ring-slate-500"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="text-sm font-medium text-slate-700">
-                        Image alt text
-                      </label>
-
-                      <input
-                        value={editing.image_alt}
-                        onChange={(e) =>
-                          updateEditing(
-                            "image_alt",
-                            e.target.value
-                          )
-                        }
-                        placeholder="Describe the image"
-                        className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-500 focus:ring-1 focus:ring-slate-500"
+                        className="max-h-40 w-full object-cover"
                       />
                     </div>
                   </div>
+                )}
+              </div>
 
-                  {editing.image_url && (
-                    <div className="mt-4">
-                      <p className="mb-2 text-xs font-medium text-slate-500">
-                        Current image
-                      </p>
+              {/* Buttons */}
+              <div className="mt-3 border border-line bg-surface-alt p-3.5">
+                <p className="text-[10px] font-semibold uppercase tracking-wide text-blue">
+                  Buttons
+                </p>
 
-                      <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
-                        <img
-                          src={editing.image_url}
-                          alt={editing.image_alt || editing.title}
-                          className="max-h-64 w-full object-cover"
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
+                <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <div>
+                    <label className="text-[11px] font-semibold text-ink">
+                      Button 1 label
+                    </label>
 
-                {/* Buttons */}
-                <div className="mt-5 rounded-lg border border-slate-200 bg-slate-50 p-4">
-                  <h3 className="text-sm font-semibold text-slate-800">
-                    Buttons
-                  </h3>
+                    <input
+                      value={editing.button_1_label}
+                      onChange={(e) =>
+                        updateEditing(
+                          "button_1_label",
+                          e.target.value
+                        )
+                      }
+                      placeholder="Learn more"
+                      className="mt-1 w-full rounded-[10px] border border-line bg-white px-3 py-2 text-xs text-ink outline-none transition focus:border-blue focus:ring-2 focus:ring-blue/10"
+                    />
+                  </div>
 
-                  <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    {/* Button 1 */}
-                    <div>
-                      <label className="text-sm font-medium text-slate-700">
-                        Button 1 label
-                      </label>
+                  <div>
+                    <label className="text-[11px] font-semibold text-ink">
+                      Button 1 URL
+                    </label>
 
-                      <input
-                        value={editing.button_1_label}
-                        onChange={(e) =>
-                          updateEditing(
-                            "button_1_label",
-                            e.target.value
-                          )
-                        }
-                        placeholder="Learn more"
-                        className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-500 focus:ring-1 focus:ring-slate-500"
-                      />
-                    </div>
+                    <input
+                      value={editing.button_1_url}
+                      onChange={(e) =>
+                        updateEditing(
+                          "button_1_url",
+                          e.target.value
+                        )
+                      }
+                      placeholder="/about"
+                      className="mt-1 w-full rounded-[10px] border border-line bg-white px-3 py-2 text-xs text-ink outline-none transition focus:border-blue focus:ring-2 focus:ring-blue/10"
+                    />
+                  </div>
 
-                    <div>
-                      <label className="text-sm font-medium text-slate-700">
-                        Button 1 URL
-                      </label>
+                  <div>
+                    <label className="text-[11px] font-semibold text-ink">
+                      Button 2 label
+                    </label>
 
-                      <input
-                        value={editing.button_1_url}
-                        onChange={(e) =>
-                          updateEditing(
-                            "button_1_url",
-                            e.target.value
-                          )
-                        }
-                        placeholder="/about"
-                        className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-500 focus:ring-1 focus:ring-slate-500"
-                      />
-                    </div>
+                    <input
+                      value={editing.button_2_label}
+                      onChange={(e) =>
+                        updateEditing(
+                          "button_2_label",
+                          e.target.value
+                        )
+                      }
+                      placeholder="Contact us"
+                      className="mt-1 w-full rounded-[10px] border border-line bg-white px-3 py-2 text-xs text-ink outline-none transition focus:border-blue focus:ring-2 focus:ring-blue/10"
+                    />
+                  </div>
 
-                    {/* Button 2 */}
-                    <div>
-                      <label className="text-sm font-medium text-slate-700">
-                        Button 2 label
-                      </label>
+                  <div>
+                    <label className="text-[11px] font-semibold text-ink">
+                      Button 2 URL
+                    </label>
 
-                      <input
-                        value={editing.button_2_label}
-                        onChange={(e) =>
-                          updateEditing(
-                            "button_2_label",
-                            e.target.value
-                          )
-                        }
-                        placeholder="Contact us"
-                        className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-500 focus:ring-1 focus:ring-slate-500"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="text-sm font-medium text-slate-700">
-                        Button 2 URL
-                      </label>
-
-                      <input
-                        value={editing.button_2_url}
-                        onChange={(e) =>
-                          updateEditing(
-                            "button_2_url",
-                            e.target.value
-                          )
-                        }
-                        placeholder="/contact"
-                        className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-500 focus:ring-1 focus:ring-slate-500"
-                      />
-                    </div>
+                    <input
+                      value={editing.button_2_url}
+                      onChange={(e) =>
+                        updateEditing(
+                          "button_2_url",
+                          e.target.value
+                        )
+                      }
+                      placeholder="/contact"
+                      className="mt-1 w-full rounded-[10px] border border-line bg-white px-3 py-2 text-xs text-ink outline-none transition focus:border-blue focus:ring-2 focus:ring-blue/10"
+                    />
                   </div>
                 </div>
               </div>
+            </div>
 
-              {/* Modal footer */}
-              <div className="flex flex-col-reverse gap-3 border-t border-slate-200 px-6 py-5 sm:flex-row sm:items-center sm:justify-end">
-                <button
-                  type="button"
-                  onClick={() => setEditing(null)}
-                  disabled={saving}
-                  className="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  Cancel
-                </button>
+            {/* Footer */}
+            <div className="flex shrink-0 justify-end gap-2 border-t border-line px-5 py-3.5">
+              <button
+                type="button"
+                onClick={() => setEditing(null)}
+                disabled={saving}
+                className="rounded-[10px] border border-line bg-white px-4 py-2 text-[11px] font-semibold text-ink transition hover:bg-surface-alt disabled:opacity-50"
+              >
+                Cancel
+              </button>
 
-                <button
-                  type="button"
-                  onClick={handleSave}
-                  disabled={saving}
-                  className="rounded-md bg-slate-900 px-5 py-2 text-sm font-semibold text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  {saving ? "Saving…" : "Save Changes"}
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={handleSave}
+                disabled={saving}
+                className="rounded-[10px] bg-ink px-4 py-2 text-[11px] font-semibold text-white transition hover:bg-slate-800 disabled:opacity-50"
+              >
+                {saving ? "Saving…" : "Save Changes"}
+              </button>
             </div>
           </div>
         </div>

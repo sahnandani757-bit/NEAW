@@ -166,6 +166,40 @@ class HomeSectionOut(HomeSectionBase):
     id: int
     image_url: str | None = None
 
+
+class AboutSectionBase(BaseModel):
+    section_key: str
+    section_type: str
+
+    eyebrow: str = ""
+    title: str = ""
+    description: str = ""
+    content: str = ""
+
+    image_id: int | None = None
+    image_alt: str = ""
+
+    enabled: bool = True
+    sort_order: int = 0
+
+    button_1_label: str = ""
+    button_1_url: str = ""
+
+    button_2_label: str = ""
+    button_2_url: str = ""
+
+
+class AboutSectionCreate(AboutSectionBase):
+    pass
+
+
+class AboutSectionOut(AboutSectionBase):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    image_url: str | None = None
+
+
 class LoginRequest(BaseModel):
     username: str
     password: str

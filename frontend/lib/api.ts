@@ -1,5 +1,6 @@
 import type {
   Article,
+  AboutSection,
   HomeSection,
   JobOpening,
   NamedItem,
@@ -42,7 +43,9 @@ export async function getContentList(listKey: string): Promise<NamedItem[]> {
 export async function getProjects(): Promise<Project[]> {
   return apiGet<Project[]>("/projects", []);
 }
-
+export async function getAboutSections(): Promise<AboutSection[]> {
+  return apiGet<AboutSection[]>("/about-sections", []);
+}
 export async function getHomeSections(): Promise<HomeSection[]> {
   return apiGet<HomeSection[]>("/home-sections", []);
 }

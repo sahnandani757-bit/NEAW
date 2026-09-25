@@ -8,6 +8,7 @@ import { clearToken, API_URL } from "@/lib/admin/client";
 const NAV = [
   { href: "/admin", label: "Dashboard" },
   { href: "/admin/home", label: "Home" },
+  { href: "/admin/about", label: "About" },
   { href: "/admin/settings", label: "Settings" },
   { href: "/admin/page-content", label: "Page Content" },
   { href: "/admin/lists", label: "Content Lists" },
@@ -18,7 +19,11 @@ const NAV = [
   { href: "/admin/images", label: "Images" },
 ];
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
   const router = useRouter();
   const { ready, username } = useAdminGuard();
@@ -29,55 +34,75 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   if (!ready) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 text-sm text-slate-500">
+      <div className="flex min-h-screen items-center justify-center bg-white text-xs text-slate">
         Checking session…
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen bg-slate-50 text-slate-900">
-      <aside className="w-64 shrink-0 border-r border-slate-200 bg-white">
-        <div className="border-b border-slate-200 px-5 py-5">
-          <p className="text-sm font-semibold text-slate-900">NEAW Admin</p>
-          <p className="mt-1 text-xs text-slate-500">Signed in as {username}</p>
+    <div className="min-h-screen bg-white text-ink">
+      {/* Fixed Sidebar */}
+      <aside className="fixed inset-y-0 left-0 z-50 flex w-56 flex-col border-r border-line bg-white">
+        {/* Header */}
+        <div className="shrink-0 border-b border-line px-4 py-4">
+          <p className="text-sm font-bold text-ink">NEAW Admin</p>
+
+          <p className="mt-0.5 truncate text-[11px] text-slate">
+            Signed in as {username}
+          </p>
         </div>
-        <nav className="flex flex-col gap-1 p-3">
-          {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                pathname === item.href
-                  ? "bg-blue-50 text-blue-700"
-                  : "text-slate-600 hover:bg-slate-100"
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
+
+        {/* Navigation */}
+        <nav className="flex-1 px-2.5 py-2.5">
+          <div className="flex flex-col gap-0.5">
+            {NAV.map((item) => {
+              const active = pathname === item.href;
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`rounded-[10px] px-3 py-2 text-xs font-medium transition-colors ${
+                    active
+                      ? "bg-blue-pale text-blue"
+                      : "text-slate hover:bg-surface-alt hover:text-ink"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </div>
         </nav>
-        <div className="border-t border-slate-200 p-3">
+
+        {/* Bottom Actions */}
+        <div className="shrink-0 border-t border-line p-2.5">
           <a
             href={`${API_URL}/docs`}
             target="_blank"
             rel="noopener noreferrer"
-            className="block rounded-md px-3 py-2 text-sm font-medium text-slate-500 hover:bg-slate-100"
+            className="block rounded-[10px] px-3 py-2 text-xs font-medium text-slate transition-colors hover:bg-surface-alt hover:text-ink"
           >
-            API docs (/docs) ↗
+            API docs ↗
           </a>
+
           <button
             onClick={() => {
               clearToken();
               router.replace("/admin/login");
             }}
-            className="mt-1 block w-full rounded-md px-3 py-2 text-left text-sm font-medium text-slate-500 hover:bg-slate-100"
+            className="mt-0.5 block w-full rounded-[10px] px-3 py-2 text-left text-xs font-medium text-slate transition-colors hover:bg-surface-alt hover:text-ink"
           >
             Log out
           </button>
         </div>
       </aside>
-      <main className="flex-1 overflow-y-auto p-8">{children}</main>
+
+      {/* Normal Browser Page Scroll */}
+      <main className="ml-56 min-h-screen min-w-0">
+        {children}
+      </main>
     </div>
   );
 }

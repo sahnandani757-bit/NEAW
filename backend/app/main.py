@@ -14,6 +14,7 @@ from app.routers import (
     home_sections,
     images,
     jobs,
+    about_sections,
     opportunities,
     page_content,
     projects,
@@ -76,7 +77,7 @@ app.include_router(jobs.router)
 app.include_router(images.router)
 app.include_router(page_content.router)
 app.include_router(home_sections.router)
-
+app.include_router(about_sections.router)
 
 @app.get("/")
 def root():

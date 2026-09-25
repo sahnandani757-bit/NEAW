@@ -15,6 +15,7 @@ from app.database import Base, SessionLocal, engine
 from app.models import (
     AdminUser,
     Article,
+    AboutSection,
     ContentListItem,
     HomeSection,
     Image,
@@ -462,6 +463,194 @@ def seed_home_sections(db):
     db.commit()
     print(f"Home sections: added {len(sections)}")
 
+def seed_about_sections(db):
+    """
+    Seeds the About page structure.
+
+    The Core Focus cards continue to come from the existing
+    core_values content list, so they are not duplicated here.
+    """
+    if db.query(AboutSection).count():
+        print("About sections: already seeded, skipping")
+        return
+
+    sections = [
+        {
+            "section_key": "hero",
+            "section_type": "hero",
+            "eyebrow": "About NEAW",
+            "title": "Exploring Opportunities. Building Possibilities.",
+            "description": (
+                "Nepal Energy and Water Resources Pvt. Ltd. works across "
+                "Nepal's energy and water resources sectors, exploring "
+                "opportunities that support sustainable economic growth "
+                "and infrastructure development."
+            ),
+            "content": "",
+            "image_id": None,
+            "image_alt": "",
+            "enabled": True,
+            "sort_order": 1,
+            "button_1_label": "",
+            "button_1_url": "",
+            "button_2_label": "",
+            "button_2_url": "",
+        },
+        {
+            "section_key": "introduction",
+            "section_type": "image_text",
+            "eyebrow": "Company Introduction",
+            "title": "Exploring Opportunities. Building Possibilities.",
+            "description": "",
+            "content": (
+                "Nepal Energy and Water Resources Pvt. Ltd. works across "
+                "Nepal's energy and water resources sectors, exploring "
+                "opportunities that support sustainable economic growth "
+                "and infrastructure development.\n\n"
+                "Our approach combines local understanding with technical "
+                "capabilities and collaborative partnerships to identify, "
+                "develop, and support opportunities with long-term potential."
+            ),
+            "image_id": None,
+            "image_alt": "Nepal energy and water resources",
+            "enabled": True,
+            "sort_order": 2,
+            "button_1_label": "",
+            "button_1_url": "",
+            "button_2_label": "",
+            "button_2_url": "",
+        },
+        {
+            "section_key": "mission",
+            "section_type": "statement",
+            "eyebrow": "Mission",
+            "title": "Creating meaningful opportunities for Nepal",
+            "description": "",
+            "content": (
+                "To identify, develop, and support sustainable energy and "
+                "water resources opportunities that create long-term value "
+                "for Nepal and its stakeholders."
+            ),
+            "image_id": None,
+            "image_alt": "",
+            "enabled": True,
+            "sort_order": 3,
+            "button_1_label": "",
+            "button_1_url": "",
+            "button_2_label": "",
+            "button_2_url": "",
+        },
+        {
+            "section_key": "vision",
+            "section_type": "statement",
+            "eyebrow": "Vision",
+            "title": "Building a sustainable future for Nepal",
+            "description": "",
+            "content": (
+                "To contribute to a more sustainable and resilient Nepal "
+                "through responsible development of energy, water resources, "
+                "infrastructure, investment, and partnerships."
+            ),
+            "image_id": None,
+            "image_alt": "",
+            "enabled": True,
+            "sort_order": 4,
+            "button_1_label": "",
+            "button_1_url": "",
+            "button_2_label": "",
+            "button_2_url": "",
+        },
+        {
+            "section_key": "focus",
+            "section_type": "cards",
+            "eyebrow": "Core Focus",
+            "title": "What guides our work",
+            "description": (
+                "Our work is guided by a focus on sustainable development, "
+                "responsible resource use, technical understanding, "
+                "investment, and collaboration."
+            ),
+            "content": "",
+            "image_id": None,
+            "image_alt": "",
+            "enabled": True,
+            "sort_order": 5,
+            "button_1_label": "",
+            "button_1_url": "",
+            "button_2_label": "",
+            "button_2_url": "",
+        },
+        {
+            "section_key": "approach",
+            "section_type": "image_text",
+            "eyebrow": "Approach",
+            "title": "How we develop projects",
+            "description": "",
+            "content": (
+                "We combine local understanding, technical capabilities, "
+                "project development experience, and collaboration to "
+                "identify and develop opportunities from early-stage "
+                "concepts through planning and implementation."
+            ),
+            "image_id": None,
+            "image_alt": "Project development in Nepal",
+            "enabled": True,
+            "sort_order": 6,
+            "button_1_label": "",
+            "button_1_url": "",
+            "button_2_label": "",
+            "button_2_url": "",
+        },
+        {
+            "section_key": "partnerships",
+            "section_type": "image_text",
+            "eyebrow": "Partnership Approach",
+            "title": "Working alongside the right partners",
+            "description": "",
+            "content": (
+                "We believe successful projects are built through "
+                "collaboration. We work with investors, technical "
+                "organisations, government stakeholders, communities, "
+                "and other partners to bring the right expertise and "
+                "resources together."
+            ),
+            "image_id": None,
+            "image_alt": "Strategic partnerships",
+            "enabled": True,
+            "sort_order": 7,
+            "button_1_label": "",
+            "button_1_url": "",
+            "button_2_label": "",
+            "button_2_url": "",
+        },
+        {
+            "section_key": "final_cta",
+            "section_type": "cta",
+            "eyebrow": "",
+            "title": "Want to know more about NEAW?",
+            "description": (
+                "Reach out and our team will be glad to share more about "
+                "our work and plans."
+            ),
+            "content": "",
+            "image_id": None,
+            "image_alt": "",
+            "enabled": True,
+            "sort_order": 8,
+            "button_1_label": "Contact us",
+            "button_1_url": "/contact",
+            "button_2_label": "See our projects",
+            "button_2_url": "/projects",
+        },
+    ]
+
+    for section_data in sections:
+        db.add(AboutSection(**section_data))
+
+    db.commit()
+    print(f"About sections: added {len(sections)}")
+
+
 def seed_admin(db):
     if db.query(AdminUser).filter(AdminUser.username == settings.admin_username).first():
         print(f"Admin user '{settings.admin_username}': already exists, skipping")
@@ -520,6 +709,7 @@ def main():
         seed_page_content(db)
         seed_home_sections(db)
         seed_admin(db)
+        seed_about_sections(db)
     finally:
         db.close()
     print("\nSeed complete.")

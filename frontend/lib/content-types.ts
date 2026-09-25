@@ -63,6 +63,27 @@ export type PageContentBlock = {
   value: string;
   image_url: string | null;
 };
+
+export type AboutSection = {
+  id: number;
+  section_key: string;
+  section_type: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  content: string;
+  image_id: number | null;
+  image_alt: string;
+  enabled: boolean;
+  sort_order: number;
+  button_1_label: string;
+  button_1_url: string;
+  button_2_label: string;
+  button_2_url: string;
+  image_url: string | null;
+};
+
+
 export type HomeSection = {
   id: number;
   section_key: string;
