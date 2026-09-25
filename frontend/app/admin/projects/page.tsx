@@ -10,7 +10,12 @@ export default function AdminProjectsPage() {
       endpoint="/projects"
       columns={["title", "location", "sector", "status"]}
       fields={[
-        { name: "title", label: "Title", type: "text", required: true },
+        {
+          name: "title",
+          label: "Title",
+          type: "text",
+          required: true,
+        },
 
         {
           name: "slug",
@@ -19,9 +24,17 @@ export default function AdminProjectsPage() {
           required: true,
         },
 
-        { name: "location", label: "Location", type: "text" },
+        {
+          name: "location",
+          label: "Location",
+          type: "text",
+        },
 
-        { name: "sector", label: "Sector", type: "text" },
+        {
+          name: "sector",
+          label: "Sector",
+          type: "text",
+        },
 
         {
           name: "status",
@@ -41,7 +54,11 @@ export default function AdminProjectsPage() {
           type: "textarea",
         },
 
-        { name: "image", label: "Image", type: "image" },
+        {
+          name: "image",
+          label: "Image",
+          type: "image",
+        },
 
         {
           name: "is_sample",

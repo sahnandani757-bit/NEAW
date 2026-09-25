@@ -9,7 +9,6 @@ const NAV = [
   { href: "/admin", label: "Dashboard" },
   { href: "/admin/home", label: "Home" },
   { href: "/admin/about", label: "About" },
-  { href: "/admin/settings", label: "Settings" },
   { href: "/admin/page-content", label: "Page Content" },
   { href: "/admin/lists", label: "Content Lists" },
   { href: "/admin/projects", label: "Projects" },
@@ -17,6 +16,7 @@ const NAV = [
   { href: "/admin/articles", label: "Insights / Articles" },
   { href: "/admin/jobs", label: "Job Openings" },
   { href: "/admin/images", label: "Images" },
+  { href: "/admin/settings", label: "Settings" },
 ];
 
 export default function AdminLayout({

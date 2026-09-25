@@ -57,16 +57,31 @@ html {
   scroll-padding-top: 80px;
   -webkit-text-size-adjust: 100%;
 
-  /* Hide scrollbar */
+  /* Keep scrolling functional but hide scrollbar */
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
-/* Chrome, Edge, Safari */
 html::-webkit-scrollbar {
   display: none;
 }
-/* Admin content scrolls, but scrollbar stays hidden */
+
+/* ---------------------------------
+   Body
+--------------------------------- */
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+
+/* ---------------------------------
+   Admin Scroll
+--------------------------------- */
+
 .admin-scroll {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -75,13 +90,21 @@ html::-webkit-scrollbar {
 .admin-scroll::-webkit-scrollbar {
   display: none;
 }
-body {
-  margin: 0;
-  overflow-x: hidden;
-  background: var(--surface);
-  color: var(--ink);
-  font-family: var(--font-body);
+
+/* ---------------------------------
+   Menu Scroll
+--------------------------------- */
+
+.menu-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
+
+.menu-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+
 
 /* ---------------------------------
    Typography
@@ -96,15 +119,7 @@ h6 {
   font-family: var(--font-display);
   letter-spacing: -0.01em;
 }
-/* Hide scrollbar but keep scrolling functional */
-.menu-scroll {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
 
-.menu-scroll::-webkit-scrollbar {
-  display: none;
-}
 /* ---------------------------------
    Selection
 --------------------------------- */
@@ -124,7 +139,7 @@ h6 {
 }
 
 /* ---------------------------------
-   Smooth Links
+   Links
 --------------------------------- */
 
 a {
@@ -159,6 +174,12 @@ a {
   max-width: 84rem;
   margin-inline: auto;
   padding-inline: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-wide {
+    padding-inline: 1.5rem;
+  }
 }
 
 @media (min-width: 768px) {
